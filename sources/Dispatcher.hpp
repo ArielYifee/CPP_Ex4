@@ -8,6 +8,9 @@ namespace pandemic{
                 return "Dispatcher";
             }
             Player& fly_direct(City dst){
+            if(dst == current_city){
+                throw std::invalid_argument("you already in this city!");
+            }
                 if(board.has_station(current_city)){
                     current_city = dst;
                 }else{

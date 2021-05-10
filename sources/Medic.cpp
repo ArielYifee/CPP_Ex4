@@ -4,6 +4,9 @@ using namespace pandemic;
 using namespace std;
 
 Player& Medic::drive(City city){
+    if(city == current_city){
+        throw invalid_argument("you already in this city!");
+    }
     if(board.is_cured(board.get_color(city))){
         board[city] = 0;
     }
@@ -11,6 +14,9 @@ Player& Medic::drive(City city){
     return *this;
 }
 Player& Medic::fly_direct(City city){
+    if(city == current_city){
+        throw invalid_argument("you already in this city!");
+    }
     if(board.is_cured(board.get_color(city))){
         board[city] = 0;
     }
@@ -18,6 +24,9 @@ Player& Medic::fly_direct(City city){
     return *this;
 }
 Player& Medic::fly_charter(City city){
+    if(city == current_city){
+        throw invalid_argument("you already in this city!");
+    }
     if(board.is_cured(board.get_color(city))){
         board[city] = 0;
     }
@@ -25,6 +34,9 @@ Player& Medic::fly_charter(City city){
     return *this;
 }
 Player& Medic::fly_shuttle(City city){
+    if(city == current_city){
+        throw invalid_argument("you already in this city!");
+    }
     if(board.is_cured(board.get_color(city))){
         board[city] = 0;
     }

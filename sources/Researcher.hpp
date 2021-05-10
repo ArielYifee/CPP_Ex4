@@ -8,6 +8,9 @@ namespace pandemic{
                 return "Researcher";
             }
             Player &discover_cure(Color color){
+                if(board.is_cured(color)){
+                    return *this;
+                }
                 int counter = 0;
                 std::set<City> cards;
                 for(auto city_card : Player_cards){
@@ -24,6 +27,8 @@ namespace pandemic{
                     for(auto city : cards){
                         Player_cards.erase(city);
                     }
+                }else{
+                    throw std::invalid_argument("not enough cards");
                 }
                 return *this;
                 }

@@ -6,6 +6,10 @@ using namespace std;
 const int MIN_CARDS = 5;
 
 Player& Player::drive(City dst){
+    if(dst == current_city){
+        throw invalid_argument("you already in this city!");
+    }
+    // cout << city2string.find(current_city)->second << "->" << city2string.find(dst)->second <<endl;
     if(!(board.can_drive(current_city,dst))){
         throw invalid_argument("the cities are'nt neighbors");
     }
@@ -13,6 +17,9 @@ Player& Player::drive(City dst){
     return *this;
 }
 Player& Player::fly_direct(City dst){
+    if(dst == current_city){
+        throw invalid_argument("you already in this city!");
+    }
     auto temp = Player_cards.find(dst);
     if(temp == Player_cards.end()){
         throw invalid_argument("the player doesn't have the card!");
@@ -22,6 +29,9 @@ Player& Player::fly_direct(City dst){
     return *this;
 }
 Player& Player::fly_charter(City dst){
+    if(dst == current_city){
+        throw invalid_argument("you already in this city!");
+    }
     auto temp = Player_cards.find(current_city);
     if(temp == Player_cards.end()){
         throw invalid_argument("the player doesn't have the card!");
@@ -31,6 +41,9 @@ Player& Player::fly_charter(City dst){
     return *this;
 }
 Player& Player::fly_shuttle(City dst){
+    if(dst == current_city){
+        throw invalid_argument("you already in this city!");
+    }
     if(board.has_station(current_city) && board.has_station(dst)){
         current_city = dst;
     }else{
@@ -46,12 +59,13 @@ Player& Player::build(){
         }else{
             throw invalid_argument("the player doesn't have the card!");
         }
-    }else{
-        throw invalid_argument("there is already research station in this city");
     }
     return *this;
 }
 Player& Player::discover_cure(Color color){
+    if(board.is_cured(color)){
+        return *this;
+    }
     if(!(board.has_station(current_city))){
         throw invalid_argument("there is no research station in the current city!");
     }
@@ -98,4 +112,7 @@ Player& Player::take_card(City city){
 }
 string Player::role() const{
     return "";
+}
+void Player::remove_cards(){
+    Player_cards.clear();
 }

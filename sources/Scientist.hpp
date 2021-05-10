@@ -11,6 +11,9 @@ namespace pandemic{
                 if(!(board.has_station(current_city))){
                     throw std::invalid_argument("there is no research station in the current city!");
                 }
+                if(board.is_cured(color)){
+                    return *this;
+                }
                 int counter = 0;
                 std::set<City> cards;
                 for(auto city_card : Player_cards){
@@ -27,6 +30,8 @@ namespace pandemic{
                     for(auto city : cards){
                         Player_cards.erase(city);
                     }
+                }else{
+                    throw std::invalid_argument("not enough cards");
                 }
                 return *this;
                 }

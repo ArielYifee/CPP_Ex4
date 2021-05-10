@@ -22,12 +22,13 @@ namespace pandemic{
             void add_station(City city);
             bool can_drive(City src, City dst) const;
             void remove_cures();
+            void remove_stations();
             Color get_color(City city) const;
         private:
             std::map<City, std::set<City>> neighbors;
             std::map<City, Color> colors;
             std::map<City, int> disease_level;
             std::set<Color> cure_list;
-            std::map<City, bool> station_list;
+            std::set<City> station_list;
     };
 }
